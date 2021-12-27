@@ -49,6 +49,25 @@ const checkRequired = (inputArray)=>{
            }
        });
 }
+
+//7
+// fucntion to check length of input field
+const checkLength = (input, min, max)=>{
+           if (input.value.length < min ) {
+               showError(input, `${input.id.charAt(0).toUpperCase() + input.id.slice(1)} need to be least ${min} characters*`)
+           }else if (input.value.length > max) {
+            showError(input, `${input.id.charAt(0).toUpperCase() + input.id.slice(1)} need to be ${max} characters*`)
+           }else{
+               showSuccess(input);
+           }
+}
+//8
+// fucntion to match password
+const matchPassword = (input1, input2)=>{
+    if (input1.value !== input2.value) {
+        showError(input2, "Password don't match");
+    }
+}
 ////////////////////////////////////////////////////////
 // 2
 // submit button
@@ -57,6 +76,15 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     checkRequired([username, email, password, password2]);
+    checkLength(username, 3, 10);
+    checkLength(password, 6, 30);
 
+    if (!isValidEmail(email.value)) {
+        console.log('asdfasd')
+        showError(email, 'Email is invalid');
+    } else {
+        showSuccess(email);
+    }
+    matchPassword(password, password2);
 });
 
